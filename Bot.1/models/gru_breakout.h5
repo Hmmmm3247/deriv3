@@ -1,0 +1,17 @@
+from tensorflow.keras.layers import GRU
+
+def build_gru_breakout_model(input_shape):
+    model = Sequential([
+        GRU(64, input_shape=input_shape, return_sequences=True),
+        GRU(32),
+        Dense(1, activation='sigmoid')
+    ])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+
+# Example training code
+X_train = np.random.rand(1000, 20, 5)  # Replace with real training data
+y_train = np.random.randint(0, 2, 1000)  # Binary labels: no breakout (0) / breakout (1)
+gru_breakout_model = build_gru_breakout_model((20, 5))
+gru_breakout_model.fit(X_train, y_train, epochs=10, batch_size=32)
+gru_breakout_model.save('models/gru_breakout.h5')

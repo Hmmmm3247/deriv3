@@ -1,0 +1,20 @@
+from tensorflow.keras.layers import Conv1D, MaxPooling1D
+
+def build_cnn_rnn_model(input_shape):
+    model = Sequential([
+        Conv1D(32, kernel_size=3, activation='relu', input_shape=input_shape),
+        MaxPooling1D(pool_size=2),
+        GRU(32, return_sequences=True),
+        GRU(16),
+        Flatten(),
+        Dense(1, activation='sigmoid')
+    ])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+
+# Example training code
+X_train = np.random.rand(1000, 20, 5)  # Replace with actual training data
+y_train = np.random.randint(0, 2, 1000)  # Binary labels: no entry (0) / entry (1) for scalping
+cnn_rnn_model = build_cnn_rnn_model((20, 5))
+cnn_rnn_model.fit(X_train, y_train, epochs=10, batch_size=32)
+cnn_rnn_model.save('models/cnn_rnn.h5')

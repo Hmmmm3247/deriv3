@@ -1,0 +1,8 @@
+
+
+# Example training code
+X_train = np.random.rand(1000, 20, 5)  # Replace with actual training data
+y_train = np.random.randint(0, 2, 1000)  # Binary labels: no breakout (0) / breakout (1)
+gru_model = build_gru_model((20, 5))
+gru_model.fit(X_train, y_train, epochs=10, batch_size=32)
+gru_model.save('models/gru.h5')

@@ -1,0 +1,6 @@
+python_deriv_api   # Replace with actual version if needed
+tensorflow             # TensorFlow for building and running models
+pandas                 # For data processing
+ta                     # Technical analysis indicators
+rx       # Reactive extensions for managing streams
+python-dotenv=  # Load environment variables from .env file

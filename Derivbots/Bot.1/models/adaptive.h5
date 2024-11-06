@@ -1,0 +1,30 @@
+from tensorflow.keras.layers import LSTM
+
+def build_adaptive_model(input_shape):
+    model = Sequential([
+        LSTM(64, input_shape=input_shape, return_sequences=True),
+        GRU(32, return_sequences=True),
+        Attention(),
+        Flatten(),
+        Dense(1, activation='sigmoid')
+    ])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+
+# Example training code
+X_train = np.random.rand(1000, 20, 5)  # Replace with actual training data
+y_train = np.random.randint(0, 2, 1000)  # Binary labels: low volatility (0) / high volatility (1)
+adaptive_model = build_adaptive_model((20, 5))
+adaptive_model.fit(X_train, y_train, epochs=10, batch_size=32)
+adaptive_model.save('models/adaptive.h5')
+
+from tensorflow.keras.layers import GRU
+
+def build_gru_model(input_shape):
+    model = Sequential([
+        GRU(64, input_shape=input_shape, return_sequences=True),
+        GRU(32),
+        Dense(1, activation='sigmoid')
+    ])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+    return model
